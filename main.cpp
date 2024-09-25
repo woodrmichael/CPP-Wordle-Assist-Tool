@@ -39,7 +39,7 @@ void run_checks() {
 
 bool can_match(string possible_answer, string guess, string letter_matches) {
     bool valid = true;
-    for(size_t ix = 0; ix < guess.size(); ++ix) {
+    for(size_t ix = 0; ix < guess.size(); ix++) {
         if(letter_matches[ix] == '.') {
             if(possible_answer[ix] != guess[ix]) { valid = false; }
         } else if(letter_matches[ix] == '-') {

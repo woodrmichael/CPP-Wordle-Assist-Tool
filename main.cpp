@@ -39,13 +39,13 @@ void run_checks() {
 
 bool can_match(string possible_answer, string guess, string letter_matches) {
     bool valid = true;
-    for(int i = 0; valid && i < guess.length(); i++) {
-        if(letter_matches[i] == '.') {
-            if(possible_answer[i] != guess[i]) { valid = false; }
-        } else if(letter_matches[i] == '-') {
-            if(possible_answer.find(guess[i]) != string::npos) { valid = false; }
-        } else if(letter_matches[i] == '?') {
-            if(possible_answer[i] == guess[i] || possible_answer.find(guess[i]) == string::npos) {
+    for(size_t ix = 0; ix < guess.size(); ++ix) {
+        if(letter_matches[ix] == '.') {
+            if(possible_answer[ix] != guess[ix]) { valid = false; }
+        } else if(letter_matches[ix] == '-') {
+            if(possible_answer.find(guess[ix]) != string::npos) { valid = false; }
+        } else if(letter_matches[ix] == '?') {
+            if(possible_answer[ix] == guess[ix] || possible_answer.find(guess[ix]) == string::npos) {
                 valid = false;
             }
         }

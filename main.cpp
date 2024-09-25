@@ -11,19 +11,20 @@ bool can_match(string, string, string);
 void read_word_list(string[], int&);
 void read_guess_list(string[MAX_GUESSES][2], int&);
 void find_matches(string[], int&, string[], int, string[MAX_GUESSES][2], int);
+void display_output(string[MAX_GUESSES][2], int, string[], int);
 
 int main() {
     run_checks();
+
     string word_list[MAX_WORDS];
     string guess_list[MAX_GUESSES][2];
     string match_list[MAX_WORDS];
     int word_count, guess_count, match_count;
+
     read_word_list(word_list, word_count);
     read_guess_list(guess_list, guess_count);
     find_matches(match_list, match_count, word_list, word_count, guess_list, guess_count);
-    for(int i = 0; i < match_count; i++) {
-        cout << match_list[i] << endl;
-    }
+    display_output(guess_list, guess_count, match_list, match_count);
 
     return 0;
 }
@@ -66,7 +67,7 @@ void read_guess_list(string guess_list[MAX_GUESSES][2], int &guess_count) {
     guess_count = 0;
     string guess, letter_matches;
     cin >> guess >> letter_matches;
-    while(cin) {
+    while(cin && guess_count < MAX_GUESSES) {
         guess_list[guess_count][0] = guess;
         guess_list[guess_count][1] = letter_matches;
         guess_count++;
@@ -78,15 +79,30 @@ void find_matches(string match_list[], int &match_count, string word_list[],
     int word_count, string guess_list[MAX_GUESSES][2], int guess_count) {
     for(int i = 0; i < word_count; i++) {
         string current_word = word_list[i];
-        bool can_match = true;
-        for(int j = 0; can_match && j < guess_count; j++) {
+        bool valid_match = true;
+        for(int j = 0; valid_match && j < guess_count; j++) {
             if(!can_match(current_word, guess_list[j][0], guess_list[j][1])) {
-                can_match = false;
+                valid_match = false;
             }
         }
-        if(can_match) {
+        if(valid_match) {
             match_list[match_count++] = current_word;
         }
+    }
+}
+
+void display_output(string guess_list[MAX_GUESSES][2], int guess_count,
+    string match_list[], int match_count) {
+    cout << "Possible guesses after ";
+    for(int i = 0; i < guess_count; i++) {
+        cout << guess_list[i][0];
+        if(i != guess_count - 1) {
+            cout << ", ";
+        }
+    }
+    cout << ": " << match_count << endl;
+    for(int i = 0; i < match_count; i++) {
+        cout << match_list[i] << endl;
     }
 }
 

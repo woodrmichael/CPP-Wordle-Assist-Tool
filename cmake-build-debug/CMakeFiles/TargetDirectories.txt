@@ -1,0 +1,3 @@
+C:/Users/woodm/CLionProjects/spa2_wordle_assist/cmake-build-debug/CMakeFiles/spa2_wordle_assist.dir
+C:/Users/woodm/CLionProjects/spa2_wordle_assist/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/woodm/CLionProjects/spa2_wordle_assist/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,6 @@
+Possible guesses after : 5
+kites
+kings
+queen
+color
+ruler

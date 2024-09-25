@@ -1,0 +1,7 @@
+kites
+kings
+queen
+color
+ruler
+END
+

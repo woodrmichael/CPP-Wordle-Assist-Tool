@@ -1,0 +1,14 @@
+anvil
+chard
+chase
+cross
+phase
+proud
+spade
+spate
+train
+END
+aisle
+?-?-.
+choir
+-----

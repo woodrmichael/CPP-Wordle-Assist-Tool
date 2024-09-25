@@ -9,6 +9,7 @@ bool can_match(string, string, string);
 
 int main() {
     run_checks();
+    string guesses[10][2];
     return 0;
 }
 
@@ -44,6 +45,17 @@ void read_word_list(string word_list[], int &word_count) {
         word_list[word_count++] = current_word;
         cin >> current_word;
     }
-
-
 }
+
+void read_guess_list(string guess_list[][], int &guess_count) {
+    guess_count = 0;
+    string guess, letter_matches;
+    cin >> guess >> letter_matches;
+    while(cin) {
+        guess_list[guess_count][0] = guess;
+        guess_list[guess_count][1] = letter_matches;
+        guess_count++;
+        cin >> guess >> letter_matches;
+    }
+}
+

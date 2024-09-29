@@ -3,7 +3,13 @@
 #include <cassert>
 using namespace std;
 
+/**
+ * The maximum words in the list of possible solutions in wordle.
+ */
 constexpr int MAX_WORDS = 3000;
+/**
+ * The maximum guesses the user can make.
+ */
 constexpr int MAX_GUESSES = 10;
 
 void run_checks();
@@ -29,30 +35,51 @@ int main() {
     return 0;
 }
 
+/**
+ * Tests for the can_match() method.
+ */
 void run_checks() {
-    assert( can_match("abcde", "axbxf", ".-\?--"));
+    assert(can_match("abcde", "axbxf", ".-\?--"));
     assert(!can_match("abcde", "axbxd", ".-\?--"));
-    assert( can_match("abcde", "easty", "\?\?---"));
+    assert(can_match("abcde", "easty", "\?\?---"));
     assert(!can_match("abcde", "abcdf", "....."));
-    assert( can_match("abcde", "uvwxy", "-----"));
+    assert(can_match("abcde", "uvwxy", "-----"));
 }
 
+/**
+ * Determines if the possible_answer could be an answer based on the user's guess
+ * and the letter_matches associated with the guess.
+ * @param possible_answer a word from the dictionary of possible answers.
+ * @param guess the word entered by a user.
+ * @param letter_matches the string of '.', '-', and '?' characters capturing
+ * which letters in the guess are "correct".
+ * @return true if possible_answer can match guess, false otherwise.
+ */
 bool can_match(string possible_answer, string guess, string letter_matches) {
-    bool valid = true;
+    bool matches = true;
     for(size_t ix = 0; ix < guess.size(); ix++) {
         if(letter_matches[ix] == '.') {
-            if(possible_answer[ix] != guess[ix]) { valid = false; }
+            if(possible_answer[ix] != guess[ix]) {
+                matches = false;
+            }
         } else if(letter_matches[ix] == '-') {
-            if(possible_answer.find(guess[ix]) != string::npos) { valid = false; }
+            if(possible_answer.find(guess[ix]) != string::npos) {
+                matches = false;
+            }
         } else if(letter_matches[ix] == '?') {
             if(possible_answer[ix] == guess[ix] || possible_answer.find(guess[ix]) == string::npos) {
-                valid = false;
+                matches = false;
             }
         }
     }
-    return valid;
+    return matches;
 }
 
+/**
+ * Gets the word list containing all possible solutions to the wordle.
+ * @param word_list the list of all possible solutions.
+ * @param word_count the total words in word_list.
+ */
 void read_word_list(string word_list[], int &word_count) {
     word_count = 0;
     string current_word;
@@ -63,6 +90,11 @@ void read_word_list(string word_list[], int &word_count) {
     }
 }
 
+/**
+ * Gets the guess list containing all guesses made by the user.
+ * @param guess_list the list of all guesses made by the user.
+ * @param guess_count the total number of guesses in guess list.
+ */
 void read_guess_list(string guess_list[MAX_GUESSES][2], int &guess_count) {
     guess_count = 0;
     string guess, letter_matches;
@@ -75,8 +107,18 @@ void read_guess_list(string guess_list[MAX_GUESSES][2], int &guess_count) {
     }
 }
 
+/**
+ * Finds all possible solutions to the wordle given a list of all possible solutions
+ * and the users previous guesses along with which letters matched.
+ * @param match_list the list of all possible solutions.
+ * @param match_count the total number of solutions.
+ * @param word_list the list of all possible solutions.
+ * @param word_count the total words in word_list.
+ * @param guess_list the list of all guesses made by the user.
+ * @param guess_count the total number of guesses in guess list.
+ */
 void find_matches(string match_list[], int &match_count, string word_list[],
-    int word_count, string guess_list[MAX_GUESSES][2], int guess_count) {
+                  int word_count, string guess_list[MAX_GUESSES][2], int guess_count) {
     for(int i = 0; i < word_count; i++) {
         string current_word = word_list[i];
         bool valid_match = true;
@@ -91,8 +133,15 @@ void find_matches(string match_list[], int &match_count, string word_list[],
     }
 }
 
+/**
+ * Displays the possible solutions to the console.
+ * @param guess_list the list of all guesses made by the user.
+ * @param guess_count the total number of guesses in guess list.
+ * @param match_list the list of all possible solutions.
+ * @param match_count the total number of solutions.
+ */
 void display_output(string guess_list[MAX_GUESSES][2], int guess_count,
-    string match_list[], int match_count) {
+                    string match_list[], int match_count) {
     cout << "Possible guesses after ";
     for(int i = 0; i < guess_count; i++) {
         cout << guess_list[i][0];

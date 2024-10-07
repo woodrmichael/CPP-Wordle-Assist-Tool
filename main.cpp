@@ -57,7 +57,7 @@ void run_checks() {
  */
 bool can_match(string possible_answer, string guess, string letter_matches) {
     bool matches = true;
-    for(size_t ix = 0; ix < guess.size(); ix++) {
+    for(size_t ix = 0; matches && ix < guess.size(); ix++) {
         if(letter_matches[ix] == '.') {
             if(possible_answer[ix] != guess[ix]) {
                 matches = false;
@@ -84,7 +84,7 @@ void read_word_list(string word_list[], int &word_count) {
     word_count = 0;
     string current_word;
     cin >> current_word;
-    while(cin && current_word != "END") {
+    while(cin && current_word != "END" && word_count < MAX_WORDS) {
         word_list[word_count++] = current_word;
         cin >> current_word;
     }
